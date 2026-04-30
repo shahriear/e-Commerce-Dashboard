@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+
+ /*....eita diye brand color banai rakhte parbo... 
+@utility bg- {
+  background-color: ;
+} */
