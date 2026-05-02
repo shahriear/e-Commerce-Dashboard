@@ -38,10 +38,10 @@ const CustomerDetailsPage = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
+        <div className="flex items-center gap-3 md:gap-4">
           <button
             onClick={() => navigate('/customers')}
             className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
@@ -50,10 +50,10 @@ const CustomerDetailsPage = () => {
             Back
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
               {customer.name}
             </h1>
-            <p className="text-gray-500 mt-1">Customer details and history</p>
+            <p className="text-gray-500 mt-1 text-sm md:text-base">Customer details and history</p>
           </div>
         </div>
         <span
@@ -66,16 +66,16 @@ const CustomerDetailsPage = () => {
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {/* Left Column */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Customer Information */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Customer Information
             </h2>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               <div>
                 <p className="text-sm text-gray-600 mb-1">Name</p>
                 <div className="flex items-center gap-2">
@@ -122,7 +122,7 @@ const CustomerDetailsPage = () => {
           </div>
 
           {/* Shipping Address */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
             <h2 className="text-lg font-bold text-gray-900 mb-4">
               Shipping Address
             </h2>
@@ -148,18 +148,18 @@ const CustomerDetailsPage = () => {
           </div>
 
           {/* Order History */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Order History
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {customer.orderHistory.map((order, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer gap-2 md:gap-3"
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 md:gap-3">
                     <span className="text-xl">📋</span>
                     <div>
                       <p className="font-semibold text-gray-900">
@@ -188,9 +188,9 @@ const CustomerDetailsPage = () => {
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           {/* Customer Profile Card */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 text-center">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200 text-center">
             <div className="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center text-6xl mx-auto mb-4">
               {customer.profileImage}
             </div>
@@ -199,13 +199,13 @@ const CustomerDetailsPage = () => {
           </div>
 
           {/* Customer Stats */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Customer Stats
             </h2>
 
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+            <div className="space-y-3 md:space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 md:p-4 bg-blue-50 rounded-lg gap-2 md:gap-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">📦</span>
                   <p className="text-sm text-gray-600">Total Orders</p>
@@ -215,7 +215,7 @@ const CustomerDetailsPage = () => {
                 </p>
               </div>
 
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 md:p-4 bg-green-50 rounded-lg gap-2 md:gap-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">💵</span>
                   <p className="text-sm text-gray-600">Total Spent</p>
@@ -223,7 +223,7 @@ const CustomerDetailsPage = () => {
                 <p className="font-bold text-gray-900">{customer.totalSpent}</p>
               </div>
 
-              <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 md:p-4 bg-purple-50 rounded-lg gap-2 md:gap-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">📊</span>
                   <p className="text-sm text-gray-600">Avg Order Value</p>
@@ -236,12 +236,12 @@ const CustomerDetailsPage = () => {
           </div>
 
           {/* Preferences */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Preferences
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <div>
                 <p className="text-sm text-gray-600 mb-1">Favorite Category</p>
                 <p className="font-semibold text-gray-900">
@@ -268,12 +268,12 @@ const CustomerDetailsPage = () => {
           </div>
 
           {/* Recent Activity */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Recent Activity
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {customer.recentActivity.map((activity, idx) => (
                 <div
                   key={idx}
@@ -299,27 +299,27 @@ const CustomerDetailsPage = () => {
           </div>
 
           {/* Actions */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Actions</h2>
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">Actions</h2>
 
-            <div className="space-y-3">
-              <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2">
+            <div className="space-y-2 md:space-y-3">
+              <button className="w-full px-4 py-2.5 md:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2">
                 <Mail size={18} />
                 Send Email
               </button>
 
-              <button className="w-full px-4 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors font-medium flex items-center justify-center gap-2">
+              <button className="w-full px-4 py-2.5 md:py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors font-medium flex items-center justify-center gap-2">
                 <Pen size={18} />
                 Edit Customer
               </button>
 
-              <button className="w-full px-4 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors font-medium flex items-center justify-center gap-2">
+              <button className="w-full px-4 py-2.5 md:py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors font-medium flex items-center justify-center gap-2">
                 <Eye size={18} />
                 View Orders
               </button>
 
               {customer.status !== 'Suspended' && (
-                <button className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium flex items-center justify-center gap-2">
+                <button className="w-full px-4 py-2.5 md:py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium flex items-center justify-center gap-2">
                   <AlertCircle size={18} />
                   Suspend Customer
                 </button>

@@ -96,9 +96,9 @@ const EditProductPage = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
         <button
           onClick={() => navigate(`/products/${id}`)}
           className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium mb-4"
@@ -106,7 +106,9 @@ const EditProductPage = () => {
           <ChevronLeft size={20} />
           Back to Product
         </button>
-        <h1 className="text-3xl font-bold text-gray-900">Edit Product</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+          Edit Product
+        </h1>
         <p className="text-gray-500 mt-1">
           Update product information and variants
         </p>
@@ -115,13 +117,13 @@ const EditProductPage = () => {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+        className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
       >
         {/* Left Column */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Basic Information */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Basic Information
             </h2>
 
@@ -169,12 +171,12 @@ const EditProductPage = () => {
           </div>
 
           {/* Pricing & Category */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Pricing & Category
             </h2>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Price *
@@ -246,8 +248,8 @@ const EditProductPage = () => {
           </div>
 
           {/* Product Images */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Product Images
             </h2>
 

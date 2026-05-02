@@ -25,9 +25,9 @@ const CartDetailsPage = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex items-center gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
         <button
           onClick={() => navigate('/carts')}
           className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
@@ -36,8 +36,8 @@ const CartDetailsPage = () => {
           Back
         </button>
         <div className="flex-1">
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-bold text-gray-900">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 md:gap-3">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
               Cart {cart.cartId}
             </h1>
             <span
@@ -53,16 +53,16 @@ const CartDetailsPage = () => {
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {/* Left Column */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Customer Information */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Customer Information
             </h2>
 
-            <div className="grid grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
               <div>
                 <p className="text-sm text-gray-600 mb-2">Customer</p>
                 <div className="flex items-center gap-2">
@@ -89,7 +89,7 @@ const CartDetailsPage = () => {
             </div>
 
             {cart.status === 'Abandoned' && (
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 md:p-4">
                 <p className="text-sm font-semibold text-yellow-800 mb-1">
                   📧 Recovery email sent 1 time(s)
                 </p>
@@ -101,16 +101,16 @@ const CartDetailsPage = () => {
           </div>
 
           {/* Cart Items */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Cart Items ({cart.itemCount})
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {cart.items.map(item => (
                 <div
                   key={item.id}
-                  className="flex items-start gap-4 pb-4 border-b border-gray-100 last:border-0 last:pb-0"
+                  className="flex items-start gap-3 md:gap-4 pb-3 md:pb-4 border-b border-gray-100 last:border-0 last:pb-0"
                 >
                   <div className="text-5xl flex-shrink-0">{item.image}</div>
                   <div className="flex-1">
@@ -130,7 +130,7 @@ const CartDetailsPage = () => {
           </div>
 
           {/* Shipping Address */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
             <h2 className="text-lg font-bold text-gray-900 mb-4">
               Shipping Address
             </h2>
@@ -144,14 +144,14 @@ const CartDetailsPage = () => {
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           {/* Order Summary */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Order Summary
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               <div className="flex justify-between items-center">
                 <p className="text-sm text-gray-600">Subtotal</p>
                 <p className="font-semibold text-gray-900">
@@ -180,14 +180,14 @@ const CartDetailsPage = () => {
           </div>
 
           {/* Cart Timeline */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Cart Timeline
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {cart.timeline.map((event, idx) => (
-                <div key={event.id} className="flex gap-3">
+                <div key={event.id} className="flex gap-2 md:gap-3">
                   <div className="flex flex-col items-center">
                     <span className="text-2xl">{event.icon}</span>
                     {idx !== cart.timeline.length - 1 && (
@@ -209,17 +209,19 @@ const CartDetailsPage = () => {
           </div>
 
           {/* Actions */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Actions</h2>
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
+              Actions
+            </h2>
 
-            <div className="space-y-2">
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
+            <div className="space-y-2 md:space-y-3">
+              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 md:py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
                 ✈️ Send Recovery Email
               </button>
-              <button className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
+              <button className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2.5 md:py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
                 💬 Contact Customer
               </button>
-              <button className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
+              <button className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 md:py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
                 🗑️ Clear Cart
               </button>
             </div>

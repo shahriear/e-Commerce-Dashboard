@@ -51,10 +51,10 @@ const PaymentDetailsPage = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
+        <div className="flex items-center gap-3 md:gap-4">
           <button
             onClick={() => navigate('/payments')}
             className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
@@ -63,10 +63,10 @@ const PaymentDetailsPage = () => {
             Back
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
               {payment.paymentId}
             </h1>
-            <p className="text-gray-500 mt-1">
+            <p className="text-gray-500 mt-1 text-sm md:text-base">
               Payment details and information
             </p>
           </div>
@@ -81,16 +81,16 @@ const PaymentDetailsPage = () => {
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {/* Left Column */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Payment Details */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Payment Details
             </h2>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               {/* Card Information Section */}
               <div className="col-span-2">
                 <h3 className="text-sm font-semibold text-gray-700 mb-4 text-blue-600">
@@ -158,7 +158,7 @@ const PaymentDetailsPage = () => {
           </div>
 
           {/* Billing Address */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
             <h2 className="text-lg font-bold text-gray-900 mb-4">
               Billing Address
             </h2>
@@ -180,14 +180,14 @@ const PaymentDetailsPage = () => {
           </div>
 
           {/* Payment Timeline */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Payment Timeline
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {payment.timeline.map((event, idx) => (
-                <div key={idx} className="flex gap-4">
+                <div key={idx} className="flex gap-3 md:gap-4">
                   <div className="flex flex-col items-center">
                     <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-600 flex-shrink-0">
                       {event.icon}
@@ -209,13 +209,13 @@ const PaymentDetailsPage = () => {
           </div>
 
           {/* Gateway Response */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Gateway Response
             </h2>
 
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+            <div className="space-y-3 md:space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 md:p-4 bg-gray-50 rounded-lg gap-2 md:gap-3">
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Status</p>
                   <p
@@ -234,7 +234,7 @@ const PaymentDetailsPage = () => {
                 </div>
               </div>
 
-              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="p-3 md:p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <p className="text-sm text-gray-600 mb-1">Message</p>
                 <p className="font-medium text-gray-900">
                   {payment.gatewayResponse.message}
@@ -245,14 +245,14 @@ const PaymentDetailsPage = () => {
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           {/* Customer Information */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Customer Information
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <div>
                 <p className="text-sm text-gray-600 mb-1">Customer Name</p>
                 <p className="font-semibold text-gray-900">
@@ -282,12 +282,12 @@ const PaymentDetailsPage = () => {
           </div>
 
           {/* Payment Summary */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Payment Summary
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               <div className="flex items-center justify-between pb-2 border-b border-gray-200">
                 <p className="text-sm text-gray-600">Payment ID</p>
                 <p className="font-semibold text-gray-900 text-sm">

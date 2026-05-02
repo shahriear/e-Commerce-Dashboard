@@ -53,16 +53,18 @@ const CustomersPage = () => {
     .slice(0, 4);
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Customers</h1>
+      <div className="mb-6 md:mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+          Customers
+        </h1>
         <p className="text-gray-500 mt-1">Manage your customer database</p>
       </div>
 
       {/* Filters and Search */}
-      <div className="mb-8 space-y-4">
-        <div className="flex items-center gap-4">
+      <div className="mb-6 md:mb-8 space-y-3 md:space-y-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 md:gap-4">
           <div className="flex-1 relative">
             <Search
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -73,16 +75,16 @@ const CustomersPage = () => {
               placeholder="Search customers by name, email or phone..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {/* Status Filter */}
-          <div className="relative">
+          <div className="relative flex-1 sm:flex-none">
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white cursor-pointer"
+              className="w-full px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white cursor-pointer"
             >
               <option>All Status</option>
               <option>Active</option>
@@ -92,7 +94,7 @@ const CustomersPage = () => {
           </div>
 
           {/* More Filters */}
-          <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium text-gray-700 flex items-center gap-2">
+          <button className="w-full sm:w-auto px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium text-gray-700 flex items-center justify-center sm:justify-start gap-2">
             More Filters
             <ChevronDown size={18} />
           </button>
@@ -100,10 +102,10 @@ const CustomersPage = () => {
       </div>
 
       {/* Customers List */}
-      <div className="space-y-4 mb-12">
+      <div className="space-y-3 md:space-y-4 mb-8 md:mb-12">
         {filteredCustomers.length === 0 ? (
-          <div className="bg-white rounded-lg p-12 shadow-sm border border-gray-200 flex flex-col items-center justify-center">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">
+          <div className="bg-white rounded-lg p-6 md:p-12 shadow-sm border border-gray-200 flex flex-col items-center justify-center">
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-2">
               No Customers Found
             </h2>
             <p className="text-gray-500">Try adjusting your filters</p>
@@ -113,7 +115,7 @@ const CustomersPage = () => {
             <div
               key={customer.id}
               onClick={() => navigate(`/customers/${customer.id}`)}
-              className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
+              className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 flex-1">
@@ -173,7 +175,7 @@ const CustomersPage = () => {
                 </div>
 
                 {/* View Details Button */}
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium flex-shrink-0">
+                <button className="px-4 py-2.5 md:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs md:text-sm font-medium flex-shrink-0">
                   View Details
                 </button>
               </div>
@@ -183,12 +185,14 @@ const CustomersPage = () => {
       </div>
 
       {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6 mb-6 md:mb-8">
+        <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Total Customers</p>
-              <p className="text-3xl font-bold text-gray-900">
+              <p className="text-xs md:text-sm text-gray-600 mb-1">
+                Total Customers
+              </p>
+              <p className="text-2xl md:text-3xl font-bold text-gray-900">
                 {customers.length}
               </p>
             </div>

@@ -1,11 +1,40 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Search, ChevronDown, MoreVertical } from 'lucide-react';
 import { categoriesData } from '../data/categories';
 
+
 const CategoriesPage = () => {
-  const navigate = useNavigate();
   const [categories, setCategories] = useState(categoriesData);
+  const stats = useMemo(() => {
+    const totalCategories = categories.length;
+
+    const activeCategories = categories.filter(
+      c => c.status === 'Active',
+    ).length;
+
+    const inactiveCategories = categories.filter(
+      c => c.status === 'Inactive',
+    ).length;
+
+    const totalRevenue = categories.reduce((sum, category) => {
+      const value = parseInt(
+        category.totalRevenue.replace('$', '').replace(',', ''),
+      );
+      return sum + value;
+    }, 0);
+
+    return {
+      totalCategories,
+      activeCategories,
+      inactiveCategories,
+      totalRevenue: `$${totalRevenue}`,
+    };
+  }, [categories]);
+
+  // --------------
+  const navigate = useNavigate();
+  
   const [statusFilter, setStatusFilter] = useState('All Status');
   const [searchTerm, setSearchTerm] = useState('');
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -42,16 +71,18 @@ const CategoriesPage = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Categories</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            Categories
+          </h1>
           <p className="text-gray-500 mt-1">Manage your product categories</p>
         </div>
         <button
           onClick={() => navigate('/add-category')}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+          className="flex items-center justify-center sm:justify-start gap-2 w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 md:py-2 rounded-lg font-medium transition-colors"
         >
           <Plus size={20} />
           Add Category
@@ -60,9 +91,9 @@ const CategoriesPage = () => {
 
       {isEmpty ? (
         // Empty State
-        <div className="bg-white rounded-lg p-12 shadow-sm border border-gray-200 flex flex-col items-center justify-center min-h-96">
-          <div className="text-6xl mb-4">📂</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <div className="bg-white rounded-lg p-6 md:p-12 shadow-sm border border-gray-200 flex flex-col items-center justify-center min-h-96">
+          <div className="text-5xl md:text-6xl mb-4">📂</div>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 text-center">
             No Categories Yet
           </h2>
           <p className="text-gray-500 text-center mb-6">
@@ -70,7 +101,7 @@ const CategoriesPage = () => {
           </p>
           <button
             onClick={() => navigate('/add-category')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+            className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 md:py-2 rounded-lg font-medium transition-colors"
           >
             Add Your First Category
           </button>
@@ -78,8 +109,8 @@ const CategoriesPage = () => {
       ) : (
         <>
           {/* Filters and Search */}
-          <div className="mb-6 space-y-4">
-            <div className="flex items-center gap-4">
+          <div className="mb-6 space-y-3 md:space-y-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 md:gap-4">
               <div className="flex-1 relative">
                 <Search
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -90,16 +121,16 @@ const CategoriesPage = () => {
                   placeholder="Search categories..."
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               {/* Status Filter */}
-              <div className="relative">
+              <div className="relative flex-1 sm:flex-none">
                 <select
                   value={statusFilter}
                   onChange={e => setStatusFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white cursor-pointer"
+                  className="w-full px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white cursor-pointer"
                 >
                   <option>All Status</option>
                   <option>Active</option>
@@ -109,7 +140,7 @@ const CategoriesPage = () => {
               </div>
 
               {/* More Filters */}
-              <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium text-gray-700 flex items-center gap-2">
+              <button className="w-full sm:w-auto px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium text-gray-700 flex items-center justify-center sm:justify-start gap-2">
                 More Filters
                 <ChevronDown size={18} />
               </button>
@@ -117,7 +148,7 @@ const CategoriesPage = () => {
           </div>
 
           {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
             {filteredCategories.map(category => (
               <div
                 key={category.id}
@@ -169,7 +200,7 @@ const CategoriesPage = () => {
                 </div>
 
                 {/* Category Info */}
-                <div className="p-4">
+                <div className="p-3 md:p-4">
                   <h3 className="font-semibold text-gray-900 text-sm mb-1">
                     {category.name}
                   </h3>
@@ -212,16 +243,72 @@ const CategoriesPage = () => {
               </div>
             ))}
           </div>
+          {/* ---------- */}
+          {/* Stats Section */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6 mt-5">
+            <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs md:text-sm text-gray-600 mb-1">
+                    Total Carts
+                  </p>
+                  <p className="text-2xl md:text-3xl font-bold text-gray-900">
+                    {stats.totalCategories}
+                  </p>
+                </div>
+                <span className="text-4xl">🛒</span>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Active Carts</p>
+                  <p className="text-3xl font-bold text-blue-600">
+                    {stats.activeCategories}
+                  </p>
+                </div>
+                <span className="text-4xl">✅</span>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Abandoned Carts</p>
+                  <p className="text-3xl font-bold text-red-600">
+                    {stats.inactiveCategories}
+                  </p>
+                </div>
+                <span className="text-4xl">🚫</span>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Total Value</p>
+                  <p className="text-3xl font-bold text-green-600">
+                    {stats.totalRevenue}
+                  </p>
+                </div>
+                <span className="text-4xl">💰</span>
+              </div>
+            </div>
+          </div>
+          {/* -------------- */}
 
           {filteredCategories.length === 0 && categories.length > 0 && (
-            <div className="bg-white rounded-lg p-12 shadow-sm border border-gray-200 flex flex-col items-center justify-center">
-              <h2 className="text-xl font-bold text-gray-900 mb-2">
+            <div className="bg-white rounded-lg p-6 md:p-12 shadow-sm border border-gray-200 flex flex-col items-center justify-center">
+              <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-2 text-center">
                 No Categories Found
               </h2>
-              <p className="text-gray-500 mb-6">Try adjusting your filters</p>
+              <p className="text-gray-500 mb-6 text-center">
+                Try adjusting your filters
+              </p>
               <button
                 onClick={() => navigate('/add-category')}
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 md:py-2 rounded-lg font-medium transition-colors"
               >
                 <Plus size={20} />
                 Add Your First Category

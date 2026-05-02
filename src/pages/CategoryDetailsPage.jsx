@@ -12,9 +12,9 @@ const CategoryDetailsPage = () => {
   }, [id]);
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
         <button
           onClick={() => navigate('/categories')}
           className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
@@ -23,32 +23,38 @@ const CategoryDetailsPage = () => {
           Back
         </button>
         <div className="flex-1">
-          <h1 className="text-3xl font-bold text-gray-900">{category.name}</h1>
-          <p className="text-gray-500 mt-1">Category details and management</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            {category.name}
+          </h1>
+          <p className="text-gray-500 mt-1 text-sm md:text-base">
+            Category details and management
+          </p>
         </div>
-        <button
-          onClick={() => navigate(`/edit-category/${category.id}`)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-        >
-          ✏️ Edit
-        </button>
-        <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2">
-          <Trash2 size={18} />
-          Delete
-        </button>
+        <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
+          <button
+            onClick={() => navigate(`/edit-category/${category.id}`)}
+            className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 md:py-2 rounded-lg font-medium transition-colors"
+          >
+            ✏️ Edit
+          </button>
+          <button className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 md:py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
+            <Trash2 size={18} />
+            Delete
+          </button>
+        </div>
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {/* Left Column */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Category Information */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
               Category Information
             </h2>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               <div>
                 <p className="text-sm text-gray-600 mb-1">Name</p>
                 <p className="font-semibold text-gray-900">{category.name}</p>
@@ -87,7 +93,7 @@ const CategoryDetailsPage = () => {
               </div>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-gray-200">
+            <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200">
               <p className="text-sm text-gray-600 mb-2">Description</p>
               <p className="text-gray-700">{category.description}</p>
             </div>
@@ -95,8 +101,8 @@ const CategoryDetailsPage = () => {
 
           {/* Products in Category */}
           {category.products && category.products.length > 0 && (
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between mb-6">
+            <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 md:gap-4 mb-4 md:mb-6">
                 <h2 className="text-lg font-bold text-gray-900">
                   Products in Category
                 </h2>
@@ -108,11 +114,11 @@ const CategoryDetailsPage = () => {
                 </a>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {category.products.map(product => (
                   <div
                     key={product.id}
-                    className="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                    className="flex items-center gap-3 md:gap-4 p-3 md:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
                     onClick={() => navigate(`/products/${product.id}`)}
                   >
                     <div className="text-4xl">{product.image}</div>
@@ -139,24 +145,24 @@ const CategoryDetailsPage = () => {
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           {/* Category Image */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Category Image
             </h2>
-            <div className="bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg p-8 flex items-center justify-center text-7xl h-48">
+            <div className="bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg p-4 md:p-6 lg:p-8 flex items-center justify-center text-7xl h-48">
               {category.image}
             </div>
           </div>
 
           {/* Performance */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Performance
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <div>
                 <p className="text-sm text-gray-600">Total Products</p>
                 <p className="text-2xl font-bold text-gray-900">
@@ -185,12 +191,12 @@ const CategoryDetailsPage = () => {
 
           {/* Recent Activity */}
           {category.recentActivity && category.recentActivity.length > 0 && (
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">
+            <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+              <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
                 Recent Activity
               </h2>
 
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 {category.recentActivity.map(activity => (
                   <div
                     key={activity.id}

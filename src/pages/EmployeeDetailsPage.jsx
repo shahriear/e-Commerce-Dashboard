@@ -44,10 +44,10 @@ const EmployeeDetailsPage = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
+        <div className="flex items-center gap-3 md:gap-4">
           <button
             onClick={() => navigate('/employees')}
             className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
@@ -56,20 +56,20 @@ const EmployeeDetailsPage = () => {
             Back
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
               Employee Details
             </h1>
-            <p className="text-gray-500 mt-1">
+            <p className="text-gray-500 mt-1 text-sm md:text-base">
               View and manage employee information
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <button className="px-4 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors font-medium flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 md:gap-3">
+          <button className="w-full sm:w-auto px-4 py-2.5 md:py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors font-medium flex items-center justify-center gap-2">
             <Edit size={18} />
             Edit
           </button>
-          <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium flex items-center gap-2">
+          <button className="w-full sm:w-auto px-4 py-2.5 md:py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium flex items-center justify-center gap-2">
             <Trash2 size={18} />
             Remove
           </button>
@@ -77,11 +77,11 @@ const EmployeeDetailsPage = () => {
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {/* Left Column */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           {/* Employee Card */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 text-center">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200 text-center">
             <div className="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center text-6xl mx-auto mb-4">
               {employee.profileImage}
             </div>
@@ -112,12 +112,12 @@ const EmployeeDetailsPage = () => {
           </div>
 
           {/* Performance */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Performance
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <div className="flex items-center justify-between">
                 <p className="text-sm text-gray-600">Tasks Completed</p>
                 <p className="text-2xl font-bold text-gray-900">
@@ -149,17 +149,19 @@ const EmployeeDetailsPage = () => {
         </div>
 
         {/* Right Column */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Personal Information */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-bold text-gray-900">
+              <h2 className="text-base md:text-lg font-bold text-gray-900">
                 Personal Information
               </h2>
-              <button className="text-blue-600 hover:text-blue-700">✏️</button>
+              <button className="text-blue-600 hover:text-blue-700 flex-shrink-0">
+                ✏️
+              </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               <div>
                 <p className="text-sm text-gray-600 mb-1">Name</p>
                 <p className="font-semibold text-gray-900">{employee.name}</p>
@@ -197,17 +199,21 @@ const EmployeeDetailsPage = () => {
           </div>
 
           {/* Permissions */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-bold text-gray-900">Permissions</h2>
-              <button className="text-blue-600 hover:text-blue-700">❤️</button>
+              <h2 className="text-base md:text-lg font-bold text-gray-900">
+                Permissions
+              </h2>
+              <button className="text-blue-600 hover:text-blue-700 flex-shrink-0">
+                ❤️
+              </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               {Object.entries(employee.permissions_list).map(([key, value]) => (
                 <div
                   key={key}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between p-2 md:p-3 bg-gray-50 rounded-lg gap-2 md:gap-3"
                 >
                   <div>
                     <p className="text-sm font-medium text-gray-900 capitalize">

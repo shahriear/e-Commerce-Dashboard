@@ -11,7 +11,7 @@ const ProductDetailsPage = () => {
     return productsData.find(p => p.id === parseInt(id)) || productsData[0];
   }, [id]);
 
-  const [showAddVariant, setShowAddVariant] = useState(false);
+  const [showAddVariant, setShowAddVariant] = useState(true);
   const [newVariant, setNewVariant] = useState({
     color: '',
     size: '',
@@ -33,9 +33,9 @@ const ProductDetailsPage = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
         <button
           onClick={() => navigate('/products')}
           className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
@@ -43,34 +43,34 @@ const ProductDetailsPage = () => {
           <ChevronLeft size={20} />
           Back
         </button>
-        <h1 className="text-3xl font-bold text-gray-900 flex-1">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 flex-1">
           {product.name}
         </h1>
         <button
           onClick={() => navigate(`/edit-product/${product.id}`)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+          className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 md:py-2 rounded-lg font-medium transition-colors"
         >
           ✏️ Edit
         </button>
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {/* Left Column - Images & Info */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Product Images */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Product Images
             </h2>
 
             {/* Main Image */}
-            <div className="bg-yellow-100 rounded-lg p-8 flex items-center justify-center text-7xl mb-4">
+            <div className="bg-yellow-100 rounded-lg p-4 md:p-6 lg:p-8 flex items-center justify-center text-7xl mb-3 md:mb-4">
               {product.image}
             </div>
 
             {/* Thumbnail Gallery */}
-            <div className="flex gap-3">
+            <div className="flex gap-2 md:gap-3">
               {product.images.map((img, idx) => (
                 <div
                   key={idx}
@@ -83,12 +83,12 @@ const ProductDetailsPage = () => {
           </div>
 
           {/* Basic Information */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Basic Information
             </h2>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               <div>
                 <p className="text-sm text-gray-600 mb-1">Title</p>
                 <p className="font-semibold text-gray-900">{product.name}</p>
@@ -117,21 +117,21 @@ const ProductDetailsPage = () => {
               </div>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-gray-200">
+            <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200">
               <p className="text-sm text-gray-600 mb-2">Description</p>
               <p className="text-gray-700">{product.description}</p>
             </div>
           </div>
 
           {/* Product Variants */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-bold text-gray-900">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 md:gap-4 mb-4 md:mb-6">
+              <h2 className="text-base md:text-lg font-bold text-gray-900">
                 Product Variants
               </h2>
               <button
                 onClick={() => setShowAddVariant(!showAddVariant)}
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded text-sm font-medium transition-colors"
+                className="w-full sm:w-auto flex items-center justify-center sm:justify-start gap-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded text-sm font-medium transition-colors"
               >
                 <Plus size={16} />
                 Add Variant
@@ -140,8 +140,8 @@ const ProductDetailsPage = () => {
 
             {/* Add Variant Form */}
             {showAddVariant && (
-              <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="mb-4 md:mb-6 p-3 md:p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
                   <input
                     type="text"
                     placeholder="Color (e.g., Black)"
@@ -149,7 +149,7 @@ const ProductDetailsPage = () => {
                     onChange={e =>
                       setNewVariant({ ...newVariant, color: e.target.value })
                     }
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <input
                     type="text"
@@ -158,7 +158,7 @@ const ProductDetailsPage = () => {
                     onChange={e =>
                       setNewVariant({ ...newVariant, size: e.target.value })
                     }
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <input
                     type="number"
@@ -167,7 +167,7 @@ const ProductDetailsPage = () => {
                     onChange={e =>
                       setNewVariant({ ...newVariant, stock: e.target.value })
                     }
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <input
                     type="text"
@@ -176,19 +176,19 @@ const ProductDetailsPage = () => {
                     onChange={e =>
                       setNewVariant({ ...newVariant, price: e.target.value })
                     }
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
                   <button
                     onClick={handleAddVariant}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors"
+                    className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 md:py-2 rounded text-sm font-medium transition-colors"
                   >
                     Add Variant
                   </button>
                   <button
                     onClick={() => setShowAddVariant(false)}
-                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded text-sm font-medium transition-colors"
+                    className="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2.5 md:py-2 rounded text-sm font-medium transition-colors"
                   >
                     Cancel
                   </button>
@@ -263,14 +263,14 @@ const ProductDetailsPage = () => {
         </div>
 
         {/* Right Column - Performance & Activity */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           {/* Performance */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Performance
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <div>
                 <p className="text-sm text-gray-600">Total Sales</p>
                 <p className="text-2xl font-bold text-gray-900">
@@ -302,12 +302,12 @@ const ProductDetailsPage = () => {
           </div>
 
           {/* Recent Activity */}
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">
               Recent Activity
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {product.recentActivity.map(activity => (
                 <div
                   key={activity.id}
