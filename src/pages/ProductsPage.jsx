@@ -136,7 +136,7 @@ const ProductsPage = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {filteredProducts.map(product => (
               <div
                 key={product.id}
@@ -159,7 +159,7 @@ const ProductsPage = () => {
                         }}
                         className="bg-white rounded-full p-2 shadow-md hover:bg-gray-50 flex items-center justify-center"
                       >
-                        <MoreVertical size={20} className="text-gray-700" />
+                        <MoreVertical size={15} className="text-gray-700" />
                       </button>
                       {openMenuId === product.id && (
                         <div className="absolute right-0 mt-1 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">

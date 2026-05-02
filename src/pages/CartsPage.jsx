@@ -162,7 +162,7 @@ const CartsPage = () => {
                   onClick={() => navigate(`/carts/${cart.id}`)}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
                 >
-                  👁️ View Details
+                  View Details
                 </button>
               </div>
             </div>
