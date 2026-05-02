@@ -32,7 +32,7 @@ const CategoryDetailsPage = () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
           <button
-            onClick={() => navigate(`/edit-category/${category.id}`)}
+            // onClick={() => navigate(`/edit-category/${category.id}`)}
             className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 md:py-2 rounded-lg font-medium transition-colors"
           >
             ✏️ Edit
