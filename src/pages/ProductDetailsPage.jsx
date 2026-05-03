@@ -92,7 +92,7 @@ const ProductDetailsPage = () => {
                 src={mainImage}
                 alt={product.name}
                 style={zoomStyle}
-                className={`w-1/2 h-80 object-cover transition-transform duration-300 ${
+                className={`lg:w-1/2 h-80 object-cover transition-transform duration-300 ${
                   isZooming ? 'scale-150 cursor-zoom-in' : 'scale-100'
                 }`}
               />
