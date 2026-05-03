@@ -113,7 +113,7 @@ const PaymentsPage = () => {
               onClick={() => navigate(`/payments/${payment.id}`)}
               className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
             >
-              <div className="flex items-start justify-between">
+              <div className="md:flex  items-start justify-between">
                 <div className="flex items-start gap-4 flex-1">
                   {/* Payment Icon */}
                   <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-xl flex-shrink-0">
@@ -155,8 +155,8 @@ const PaymentsPage = () => {
                 </div>
 
                 {/* Amount */}
-                <div className="text-right flex-shrink-0">
-                  <p className="text-2xl font-bold text-gray-900">
+                <div className="text-righ flex-shrink-0  ">
+                  <p className="text-xl font-bold text-gray-900 ">
                     {payment.amount}
                   </p>
                   <p className="text-xs text-gray-500">{payment.currency}</p>

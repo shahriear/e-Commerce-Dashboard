@@ -128,7 +128,7 @@ const OrdersPage = () => {
                 </div>
 
                 <div className="text-right flex-shrink-0">
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-xl font-bold text-gray-900">
                     {order.orderTotal}
                   </p>
                   <p className="text-xs text-gray-500">
