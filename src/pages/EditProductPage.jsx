@@ -153,9 +153,9 @@ const EditProductPage = () => {
         <div className="bg-white p-6 rounded-xl shadow  border border-gray-300 ">
           <h2 className="font-semibold mb-4">Basic Information</h2>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 ">
             <div>
-              <label>Product Title</label>
+              <label className="text-gray-500">Product Title</label>
               <input
                 name="name"
                 value={formData.name}
@@ -165,7 +165,7 @@ const EditProductPage = () => {
             </div>
 
             <div>
-              <label>Slug</label>
+              <label className="text-gray-500">Slug</label>
               <input
                 name="slug"
                 value={formData.slug}
@@ -175,7 +175,7 @@ const EditProductPage = () => {
             </div>
 
             <div className="col-span-2">
-              <label>Description</label>
+              <label className="text-gray-500">Description</label>
               <textarea
                 name="description"
                 value={formData.description}
@@ -186,7 +186,7 @@ const EditProductPage = () => {
             </div>
 
             <div>
-              <label>Price</label>
+              <label className="text-gray-500">Price</label>
               <input
                 name="price"
                 value={formData.price}
@@ -196,7 +196,7 @@ const EditProductPage = () => {
             </div>
 
             <div>
-              <label>Stock</label>
+              <label className="text-gray-500">Stock</label>
               <input
                 name="stock"
                 value={formData.stock}
@@ -206,7 +206,7 @@ const EditProductPage = () => {
             </div>
 
             <div>
-              <label>Category</label>
+              <label className="text-gray-500">Category</label>
               <select
                 name="category"
                 value={formData.category}
@@ -220,7 +220,7 @@ const EditProductPage = () => {
             </div>
 
             <div>
-              <label>Status</label>
+              <label className="text-gray-500">Status</label>
               <select
                 name="status"
                 value={formData.status}

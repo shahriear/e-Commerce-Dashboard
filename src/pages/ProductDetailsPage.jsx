@@ -65,8 +65,12 @@ const ProductDetailsPage = () => {
             </h2>
 
             {/* Main Image */}
-            <div className="bg-yellow-100 rounded-lg p-4 md:p-6 lg:p-8 flex items-center justify-center text-7xl mb-3 md:mb-4">
-              {product.image}
+            <div className="bg-gray-100 rounded-lg overflow-hidden mb-4">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-80 object-cover hover:scale-110 transition-transform duration-300"
+              />
             </div>
 
             {/* Thumbnail Gallery */}
@@ -76,7 +80,11 @@ const ProductDetailsPage = () => {
                   key={idx}
                   className="w-20 h-20 bg-yellow-100 rounded-lg flex items-center justify-center text-4xl cursor-pointer hover:ring-2 hover:ring-blue-500"
                 >
-                  {img}
+                  <img
+                    src={img}
+                    alt="thumb"
+                    className="w-20 h-20 object-cover rounded-lg cursor-pointer hover:scale-105"
+                  />
                 </div>
               ))}
             </div>

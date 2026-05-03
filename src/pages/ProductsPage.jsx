@@ -150,10 +150,16 @@ const ProductsPage = () => {
               >
                 {/* Product Image */}
                 <div
-                  className="bg-gradient-to-br from-yellow-100 to-yellow-50 aspect-square flex items-center justify-center text-4xl sm:text-5xl group-hover:scale-105 transition-transform relative cursor-pointer"
+                  className="bg-gradient-to-br from-yellow-00 to-yellow-0 aspect-square flex items-center justify-center text-4xl sm:text-5xl group-hover:scale-105 transition-transform relative cursor-pointer"
                   onClick={() => navigate(`/products/${product.id}`)}
                 >
-                  {product.image}
+                  <div className="bg-gray-100 rounded-lg overflow-hidden mb-4">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-80 object-cover hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
                   <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="relative">
                       <button

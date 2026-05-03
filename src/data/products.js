@@ -6,10 +6,14 @@ export const productsData = [
     status: 'Active',
     price: '$95.00',
     stock: 156,
-    image: '🎧',
+    // image: '🎧',
+    image: 'https://picsum.photos/400/400?random=1',
     description:
       'High-quality wireless headphones with noise cancellation technology.',
-    images: ['🎧', '🎵', '🔊'],
+    images: [
+      'https://picsum.photos/400/400?random=11',
+      'https://picsum.photos/400/400?random=12',
+    ],
     variants: [
       {
         id: 1,
@@ -60,9 +64,13 @@ export const productsData = [
     status: 'Active',
     price: '$100.00',
     stock: 89,
-    image: '⌚',
+    // image: '⌚',
+    image: 'https://picsum.photos/400/400?random=2',
     description: 'Advanced fitness tracking with heart rate monitor and GPS.',
-    images: ['⌚', '📱', '💪'],
+    images: [
+      'https://picsum.photos/400/400?random=11',
+      'https://picsum.photos/400/400?random=12',
+    ],
     variants: [
       {
         id: 1,
@@ -113,10 +121,15 @@ export const productsData = [
     status: 'Active',
     price: '$49.00',
     stock: 234,
-    image: '💻',
+    // image: '💻',
+    image: 'https://picsum.photos/400/400?random=3',
     description:
       'Adjustable laptop stand for better posture and desk organization.',
-    images: ['💻', '🖥️', '⌨️'],
+    images: [
+      'https://picsum.photos/100/100?random=11',
+      'https://picsum.photos/100/100?random=12',
+      'https://picsum.photos/100/100?random=13',
+    ],
     variants: [
       {
         id: 1,
@@ -167,10 +180,15 @@ export const productsData = [
     status: 'Inactive',
     price: '$75.00',
     stock: 45,
-    image: '🔊',
+    // image: '🔊',
+    image: 'https://picsum.photos/400/400?random=4',
     description:
       'Compact portable speaker with 360-degree sound and long battery life.',
-    images: ['🔊', '🎵', '📻'],
+    images: [
+      'https://picsum.photos/100/100?random=11',
+      'https://picsum.photos/100/100?random=12',
+      'https://picsum.photos/100/100?random=13',
+    ],
     variants: [
       {
         id: 1,
