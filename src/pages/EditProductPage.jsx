@@ -1,30 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Upload, X, ChevronLeft } from 'lucide-react';
+import { X, ChevronLeft, Plus, Trash2 } from 'lucide-react';
+import { productsData } from '../data/products';
 
 const EditProductPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
 
-  const [formData, setFormData] = useState({
-    name: 'Wireless Bluetooth Headphones',
-    slug: 'wireless-bluetooth-headphones',
-    description:
-      'High-quality wireless headphones with noise cancellation technology.',
-    category: 'Electronics',
-    status: 'Active',
-    price: '95.00',
-    stock: '156',
-    mainImage: null,
-    additionalImages: [],
-  });
-
-  const [mainImagePreview, setMainImagePreview] = useState('🎧');
-  const [additionalImagesPreview, setAdditionalImagesPreview] = useState([
-    '🎵',
-    '🔊',
-  ]);
+  const [formData, setFormData] = useState(null);
+  const [mainImagePreview, setMainImagePreview] = useState('');
+  const [additionalImagesPreview, setAdditionalImagesPreview] = useState([]);
+  const [variants, setVariants] = useState([]);
 
   const categories = [
     'Electronics',
@@ -33,380 +20,321 @@ const EditProductPage = () => {
     'Home & Garden',
   ];
 
+  // ---------------- LOAD PRODUCT ----------------
+  useEffect(() => {
+    const product = productsData.find(p => p.id === Number(id));
+
+    if (product) {
+      setFormData({
+        name: product.name,
+        slug: product.name.toLowerCase().replace(/\s+/g, '-'),
+        description: product.description,
+        category: product.category,
+        status: product.status,
+        price: product.price.replace('$', ''),
+        stock: product.stock,
+        mainImageUrl: product.image,
+      });
+
+      setMainImagePreview(product.image);
+      setAdditionalImagesPreview(product.images || []);
+
+      setVariants(
+        product.variants.map(v => ({
+          id: v.id,
+          color: v.color,
+          size: v.size,
+          stock: String(v.stock),
+          price: v.price.replace('$', ''),
+        })),
+      );
+    }
+  }, [id]);
+
+  if (!formData) return <p className="p-6">Loading...</p>;
+
+  // ---------------- HANDLERS ----------------
   const handleInputChange = e => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleMainImageUrlChange = e => {
+    setFormData(prev => ({ ...prev, mainImageUrl: e.target.value }));
+    setMainImagePreview(e.target.value);
   };
 
   const handleMainImageChange = e => {
     const file = e.target.files?.[0];
-    if (file) {
-      setFormData(prev => ({
-        ...prev,
-        mainImage: file,
-      }));
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setMainImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setMainImagePreview(reader.result);
+      setFormData(prev => ({ ...prev, mainImageUrl: reader.result }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleAdditionalImagesChange = e => {
-    const files = e.target.files;
-    if (files) {
-      const newFiles = Array.from(files);
-      setFormData(prev => ({
-        ...prev,
-        additionalImages: [...prev.additionalImages, ...newFiles],
-      }));
-
-      newFiles.forEach(file => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setAdditionalImagesPreview(prev => [...prev, reader.result]);
-        };
-        reader.readAsDataURL(file);
-      });
-    }
+    const files = Array.from(e.target.files || []);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAdditionalImagesPreview(prev => [...prev, reader.result]);
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   const removeAdditionalImage = index => {
     setAdditionalImagesPreview(prev => prev.filter((_, i) => i !== index));
-    setFormData(prev => ({
-      ...prev,
-      additionalImages: prev.additionalImages.filter((_, i) => i !== index),
-    }));
   };
 
-  const handleSubmit = async e => {
+  const handleVariantChange = (id, field, value) => {
+    setVariants(prev =>
+      prev.map(v => (v.id === id ? { ...v, [field]: value } : v)),
+    );
+  };
+
+  const addVariant = () => {
+    const newId = Math.max(...variants.map(v => v.id), 0) + 1;
+    setVariants(prev => [
+      ...prev,
+      { id: newId, color: '', size: '', stock: '', price: '' },
+    ]);
+  };
+
+  const deleteVariant = id => {
+    setVariants(prev => prev.filter(v => v.id !== id));
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate API call
     setTimeout(() => {
       setLoading(false);
       navigate(`/products/${id}`);
       alert('Product updated successfully!');
-    }, 1500);
+    }, 1200);
   };
 
+  // ---------------- UI ----------------
   return (
-    <div className="p-4 md:p-6 lg:p-8">
-      {/* Header */}
-      <div className="mb-6 md:mb-8">
+    <div className="p-6 bg-gray-100 min-h-screen">
+      {/* HEADER */}
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <button
+            onClick={() => navigate(`/products/${id}`)}
+            className="flex items-center gap-2 text-blue-600 mb-2"
+          >
+            <ChevronLeft size={18} />
+            Back
+          </button>
+
+          <h1 className="text-2xl font-bold">Edit Product</h1>
+          <p className="text-gray-500">
+            Update product information and variants
+          </p>
+        </div>
+
         <button
-          onClick={() => navigate(`/products/${id}`)}
-          className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium mb-4"
+          onClick={handleSubmit}
+          className="bg-blue-600 text-white px-5 py-2 rounded-lg"
         >
-          <ChevronLeft size={20} />
-          Back to Product
+          {loading ? 'Saving...' : 'Save Changes'}
         </button>
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-          Edit Product
-        </h1>
-        <p className="text-gray-500 mt-1">
-          Update product information and variants
-        </p>
       </div>
 
-      {/* Form */}
-      <form
-        onSubmit={handleSubmit}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
-      >
-        {/* Left Column */}
-        <div className="lg:col-span-2 space-y-4 md:space-y-6">
-          {/* Basic Information */}
-          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
-            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
-              Basic Information
-            </h2>
+      <form className="space-y-6">
+        {/* BASIC INFO */}
+        <div className="bg-white p-6 rounded-xl shadow  border border-gray-300 ">
+          <h2 className="font-semibold mb-4">Basic Information</h2>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Product Name *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Slug
-                </label>
-                <input
-                  type="text"
-                  name="slug"
-                  value={formData.slug}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Description
-                </label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  rows={5}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Pricing & Category */}
-          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
-            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
-              Pricing & Category
-            </h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Price *
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-2 text-gray-700 font-medium">
-                    $
-                  </span>
-                  <input
-                    type="number"
-                    name="price"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                    required
-                    step="0.01"
-                    className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Stock
-                </label>
-                <input
-                  type="number"
-                  name="stock"
-                  value={formData.stock}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Category *
-                </label>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  {categories.map(cat => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Status
-                </label>
-                <select
-                  name="status"
-                  value={formData.status}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option>Active</option>
-                  <option>Inactive</option>
-                  <option>Draft</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {/* Product Images */}
-          <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-gray-200">
-            <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4 md:mb-6">
-              Product Images
-            </h2>
-
-            {/* Main Image */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Main Image
-              </label>
-              <div className="relative">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleMainImageChange}
-                  className="hidden"
-                  id="mainImage"
-                />
-                <label
-                  htmlFor="mainImage"
-                  className="flex items-center justify-center w-full border-2 border-dashed border-gray-300 rounded-lg p-6 cursor-pointer hover:border-gray-400 transition-colors"
-                >
-                  {typeof mainImagePreview === 'string' &&
-                  mainImagePreview.includes('/') ? (
-                    <div className="flex flex-col items-center">
-                      <img
-                        src={mainImagePreview}
-                        alt="Main"
-                        className="h-32 w-32 object-cover rounded"
-                      />
-                      <p className="text-sm text-gray-500 mt-2">
-                        Click to change
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center text-5xl">
-                      {mainImagePreview}
-                      <p className="text-sm text-gray-500 mt-2">
-                        Click to change
-                      </p>
-                    </div>
-                  )}
-                </label>
-              </div>
-            </div>
-
-            {/* Additional Images */}
+          <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Additional Images
-              </label>
+              <label>Product Title</label>
               <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleAdditionalImagesChange}
-                className="hidden"
-                id="additionalImages"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="w-full border  border-gray-300 p-2 rounded"
               />
-              <label
-                htmlFor="additionalImages"
-                className="flex items-center justify-center w-full border-2 border-dashed border-gray-300 rounded-lg p-6 cursor-pointer hover:border-gray-400 transition-colors"
-              >
-                <div className="flex flex-col items-center">
-                  <Upload className="text-gray-400 mb-2" size={32} />
-                  <p className="text-sm font-medium text-gray-700">
-                    Click to upload additional images
-                  </p>
-                </div>
-              </label>
+            </div>
 
-              {additionalImagesPreview.length > 0 && (
-                <div className="grid grid-cols-4 gap-4 mt-4">
-                  {additionalImagesPreview.map((image, idx) => (
-                    <div key={idx} className="relative group">
-                      {typeof image === 'string' && image.includes('/') ? (
-                        <img
-                          src={image}
-                          alt={`Additional ${idx}`}
-                          className="w-full h-24 object-cover rounded"
-                        />
-                      ) : (
-                        <div className="w-full h-24 bg-yellow-100 rounded flex items-center justify-center text-3xl">
-                          {image}
-                        </div>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => removeAdditionalImage(idx)}
-                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
+            <div>
+              <label>Slug</label>
+              <input
+                name="slug"
+                value={formData.slug}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 p-2 rounded"
+              />
+            </div>
+
+            <div className="col-span-2">
+              <label>Description</label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 p-2 rounded"
+                rows={4}
+              />
+            </div>
+
+            <div>
+              <label>Price</label>
+              <input
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 p-2 rounded"
+              />
+            </div>
+
+            <div>
+              <label>Stock</label>
+              <input
+                name="stock"
+                value={formData.stock}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 p-2 rounded"
+              />
+            </div>
+
+            <div>
+              <label>Category</label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 p-2 rounded"
+              >
+                {categories.map(c => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label>Status</label>
+              <select
+                name="status"
+                value={formData.status}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 p-2 rounded"
+              >
+                <option>Active</option>
+                <option>Inactive</option>
+                <option>Draft</option>
+              </select>
             </div>
           </div>
         </div>
 
-        {/* Right Column - Summary */}
-        <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 sticky top-24">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Summary</h3>
+        {/* MAIN IMAGE */}
+        <div className="bg-white p-6 rounded-xl shadow border border-gray-300">
+          <h2 className="font-semibold mb-4">Main Image</h2>
 
-            <div className="space-y-4 mb-6">
-              <div>
-                <p className="text-sm text-gray-600">Name</p>
-                <p className="font-semibold text-gray-900">
-                  {formData.name || 'Not set'}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Price</p>
-                <p className="font-semibold text-gray-900">
-                  ${formData.price || '0.00'}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Category</p>
-                <p className="font-semibold text-gray-900">
-                  {formData.category || 'Not set'}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Status</p>
-                <span
-                  className={`inline-block text-xs font-semibold px-2 py-1 rounded ${
-                    formData.status === 'Active'
-                      ? 'bg-green-100 text-green-700'
-                      : formData.status === 'Inactive'
-                        ? 'bg-gray-100 text-gray-700'
-                        : 'bg-yellow-100 text-yellow-700'
-                  }`}
-                >
-                  {formData.status}
-                </span>
-              </div>
-            </div>
+          <div className="flex gap-6">
+            <img
+              src={mainImagePreview}
+              className="w-28 h-28 object-cover rounded"
+            />
 
-            <div className="space-y-3">
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
-              >
-                {loading && <span className="animate-spin">⏳</span>}
-                {loading ? 'Saving...' : 'Save Changes'}
-              </button>
-              <button
-                type="button"
-                onClick={() => navigate(`/products/${id}`)}
-                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-medium transition-colors"
-              >
-                Cancel
-              </button>
+            <div className="flex-1">
+              <input
+                value={formData.mainImageUrl}
+                onChange={handleMainImageUrlChange}
+                className="w-full border border-gray-300 p-2 mb-2 rounded"
+              />
+
+              <input type="file" onChange={handleMainImageChange} />
             </div>
           </div>
+        </div>
+
+        {/* ADDITIONAL IMAGES */}
+        <div className="bg-white p-6 rounded-xl shadow border border-gray-300">
+          <h2 className="font-semibold mb-4">Additional Images</h2>
+
+          <div className="grid grid-cols-4 gap-3">
+            {additionalImagesPreview.map((img, i) => (
+              <div key={i} className="relative">
+                <img src={img} className="h-24 w-full object-cover rounded" />
+                <button
+                  onClick={() => removeAdditionalImage(i)}
+                  className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            ))}
+
+            <label className="border border-gray-500 border-dashed p-6 flex items-center justify-center cursor-pointer">
+              <Plus />
+              <input
+                type="file"
+                multiple
+                hidden
+                onChange={handleAdditionalImagesChange}
+              />
+            </label>
+          </div>
+        </div>
+
+        {/* VARIANTS */}
+        <div className="bg-white p-6 rounded-xl shadow border border-gray-300">
+          <div className="flex justify-between mb-4">
+            <h2 className="font-semibold">Product Variants</h2>
+            <button type="button" onClick={addVariant}>
+              <Plus />
+            </button>
+          </div>
+
+          {variants.map(v => (
+            <div key={v.id} className="grid grid-cols-5 gap-2 mb-3">
+              <input
+                placeholder="Color"
+                value={v.color}
+                onChange={e =>
+                  handleVariantChange(v.id, 'color', e.target.value)
+                }
+                className="border border-gray-300 p-2 rounded"
+              />
+              <input
+                placeholder="Size"
+                value={v.size}
+                onChange={e =>
+                  handleVariantChange(v.id, 'size', e.target.value)
+                }
+                className="border border-gray-300 p-2 rounded"
+              />
+              <input
+                placeholder="Stock"
+                value={v.stock}
+                onChange={e =>
+                  handleVariantChange(v.id, 'stock', e.target.value)
+                }
+                className="border border-gray-300 p-2 rounded"
+              />
+              <input
+                placeholder="Price"
+                value={v.price}
+                onChange={e =>
+                  handleVariantChange(v.id, 'price', e.target.value)
+                }
+                className="border border-gray-300 p-2 rounded"
+              />
+
+              <button onClick={() => deleteVariant(v.id)}>
+                <Trash2 />
+              </button>
+            </div>
+          ))}
         </div>
       </form>
     </div>
