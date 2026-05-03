@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, Upload, X } from 'lucide-react';
 
 const AddProductPage = () => {
-
   const [showAddVariant, setShowAddVariant] = useState(true);
   const [newVariant, setNewVariant] = useState({
     color: '',
@@ -155,7 +154,7 @@ const AddProductPage = () => {
                   onChange={handleInputChange}
                   placeholder="e.g., Wireless Bluetooth Headphones"
                   // required
-                  className="w-full px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-[16px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -169,7 +168,7 @@ const AddProductPage = () => {
                   value={formData.slug}
                   onChange={handleInputChange}
                   placeholder="product-slug"
-                  className="w-full px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-[16px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -183,7 +182,7 @@ const AddProductPage = () => {
                   onChange={handleInputChange}
                   placeholder="Enter product description"
                   rows={5}
-                  className="w-full px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-[16px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
@@ -212,7 +211,7 @@ const AddProductPage = () => {
                     placeholder="0.00"
                     // required
                     step="0.01"
-                    className="w-full pl-7 md:pl-8 pr-3 md:pr-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full pl-7 md:pl-8 pr-3 md:pr-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-[16px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -227,7 +226,7 @@ const AddProductPage = () => {
                   value={formData.stock}
                   onChange={handleInputChange}
                   placeholder="0"
-                  className="w-full px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 md:px-4 py-2.5 md:py-2 border border-gray-300 rounded-lg text-[16px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 

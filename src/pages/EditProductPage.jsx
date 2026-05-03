@@ -142,7 +142,7 @@ const EditProductPage = () => {
 
         <button
           onClick={handleSubmit}
-          className="bg-blue-600 text-white px-5 py-2 rounded-lg"
+          className="bg-blue-600 whitespace-nowrap text-sm text-white px-5 py-2 rounded-lg"
         >
           {loading ? 'Saving...' : 'Save Changes'}
         </button>
@@ -252,7 +252,11 @@ const EditProductPage = () => {
                 className="w-full border border-gray-300 p-2 mb-2 rounded"
               />
 
-              <input type="file" onChange={handleMainImageChange} />
+              <input
+                className="border border-dashed border-gray-300 text-gray-500 w-full"
+                type="file"
+                onChange={handleMainImageChange}
+              />
             </div>
           </div>
         </div>
