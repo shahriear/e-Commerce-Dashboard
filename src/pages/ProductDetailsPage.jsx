@@ -31,6 +31,22 @@ const ProductDetailsPage = () => {
       setShowAddVariant(false);
     }
   };
+  //image zoom state
+  const [mainImage, setMainImage] = useState(product.image);
+  const [zoomStyle, setZoomStyle] = useState({});
+  const [isZooming, setIsZooming] = useState(false);
+
+  const handleMouseMove = e => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+
+    const x = ((e.pageX - left) / width) * 100;
+    const y = ((e.pageY - top) / height) * 100;
+
+    setZoomStyle({
+      transformOrigin: `${x}% ${y}%`,
+    });
+  };
 
   return (
     <div className="p-4 md:p-6 lg:p-8">
@@ -65,11 +81,20 @@ const ProductDetailsPage = () => {
             </h2>
 
             {/* Main Image */}
-            <div className="bg-gray-100 rounded-lg overflow-hidden mb-4">
+
+            <div
+              className="overflow-hidden rounded-lg bg-gray-100 mb-4"
+              onMouseEnter={() => setIsZooming(true)}
+              onMouseLeave={() => setIsZooming(false)}
+              onMouseMove={handleMouseMove}
+            >
               <img
-                src={product.image}
+                src={mainImage}
                 alt={product.name}
-                className="w-full h-80 object-cover hover:scale-110 transition-transform duration-300"
+                style={zoomStyle}
+                className={`w-1/2 h-80 object-cover transition-transform duration-300 ${
+                  isZooming ? 'scale-150 cursor-zoom-in' : 'scale-100'
+                }`}
               />
             </div>
 
@@ -78,12 +103,13 @@ const ProductDetailsPage = () => {
               {product.images.map((img, idx) => (
                 <div
                   key={idx}
-                  className="w-20 h-20 bg-yellow-100 rounded-lg flex items-center justify-center text-4xl cursor-pointer hover:ring-2 hover:ring-blue-500"
+                  onClick={() => setMainImage(img)}
+                  className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:ring-2 hover:ring-blue-500"
                 >
                   <img
                     src={img}
                     alt="thumb"
-                    className="w-20 h-20 object-cover rounded-lg cursor-pointer hover:scale-105"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               ))}
